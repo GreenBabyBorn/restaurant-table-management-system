@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { TableType, ReservationType } from "../types";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
 
 type ReservationFormProps = {
   selectedTable: TableType | null;
@@ -40,30 +43,30 @@ const ReservationForm = ({
   };
 
   return (
-    <div className="bg-white p-4 rounded shadow-md">
+    <div className="bg-white p-4 rounded shadow-md border">
       <h2 className="text-lg font-bold mb-4">
         Make Reservation for Table {selectedTable?.id} (Seats:{" "}
         {selectedTable?.seats})
       </h2>
       <form onSubmit={handleSubmit}>
         {error && <p className="text-red-500 mb-2">{error}</p>}
-        <input
+        <Input
           type="text"
           placeholder="Guest Name"
           value={guestName}
           onChange={(e) => setGuestName(e.target.value)}
-          className="border p-2 mb-2 w-full"
           required
+          className="mb-2"
         />
-        <input
+        <Input
           type="tel"
           placeholder="Phone"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
-          className="border p-2 mb-2 w-full"
           required
+          className="mb-2"
         />
-        <input
+        <Input
           type="number"
           placeholder="Party Size"
           value={partySize}
@@ -72,35 +75,29 @@ const ReservationForm = ({
             setPartySize(isNaN(value) ? 1 : value);
             setError(null);
           }}
-          className="border p-2 mb-2 w-full"
-          min="1"
+          min={1}
           max={selectedTable?.seats || 100}
           required
+          className="mb-2"
         />
-        <input
+        <Input
           type="datetime-local"
           value={dateTime}
           onChange={(e) => setDateTime(e.target.value)}
-          className="border p-2 mb-2 w-full"
           required
+          className="mb-2"
         />
-        <textarea
+        <Textarea
           placeholder="Special Requests"
           value={specialRequests}
           onChange={(e) => setSpecialRequests(e.target.value)}
-          className="border p-2 mb-2 w-full"
+          className="mb-2"
         />
-        <div className="flex gap-2">
-          <button type="submit" className="bg-blue-500 text-white p-2 rounded">
-            Submit
-          </button>
-          <button
-            type="button"
-            onClick={onCancel}
-            className="bg-gray-500 text-white p-2 rounded"
-          >
+        <div className="flex gap-2 mt-4">
+          <Button type="submit">Submit</Button>
+          <Button type="button" variant="outline" onClick={onCancel}>
             Cancel
-          </button>
+          </Button>
         </div>
       </form>
     </div>

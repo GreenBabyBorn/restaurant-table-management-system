@@ -136,7 +136,7 @@ export default function Home() {
         Restaurant Table Management System
       </h1>
       <div className="flex gap-4">
-        <div className="relative w-3/4 h-96 border">
+        <div className="relative w-3/4 h-96 border shadow-md rounded">
           {tables.map((table) => (
             <Table key={table.id} table={table} onClick={handleTableClick} />
           ))}
@@ -155,7 +155,7 @@ export default function Home() {
             onEditReservation={handleEditReservation}
           />
 
-          <div className="mt-4">
+          <div className="mt-4 flex flex-col gap-4">
             <h2 className="text-lg font-bold">Table Actions</h2>
             {tables.map((table) => (
               <TableStatusControl

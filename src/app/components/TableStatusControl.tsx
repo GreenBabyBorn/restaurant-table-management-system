@@ -1,5 +1,6 @@
 import React from "react";
 import { TableType } from "../types";
+import { Button } from "@/components/ui/button";
 
 type TableStatusControlProps = {
   table: TableType;
@@ -14,21 +15,15 @@ const TableStatusControl: React.FC<TableStatusControlProps> = ({
 }) => {
   if (table.status === "available") {
     return (
-      <button
-        onClick={() => onWalkIn(table.id)}
-        className="bg-green-500 text-white p-2 m-1 rounded"
-      >
+      <Button onClick={() => onWalkIn(table.id)}>
         Seat Walk-In at Table {table.id}
-      </button>
+      </Button>
     );
   } else if (table.status === "occupied") {
     return (
-      <button
-        onClick={() => onClearTable(table.id)}
-        className="bg-purple-500 text-white p-2 m-1 rounded"
-      >
+      <Button onClick={() => onClearTable(table.id)} variant="secondary">
         Clear Table {table.id}
-      </button>
+      </Button>
     );
   } else {
     return null; // Don't show anything for reserved tables in this control

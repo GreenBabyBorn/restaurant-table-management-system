@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { ReservationType } from "../types";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 type EditReservationFormProps = {
   reservation: ReservationType;
@@ -41,68 +50,60 @@ const EditReservationForm = ({
   };
 
   return (
-    <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50">
-      <div className="bg-white p-6 rounded shadow-lg w-96">
-        <h2 className="text-xl font-bold mb-4">
-          Edit Reservation for Table {reservation.tableId}
-        </h2>
+    <Dialog open={true} onOpenChange={onCancel}>
+      {" "}
+      {/* Using Dialog component */}
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>
+            Edit Reservation for Table {reservation.tableId}
+          </DialogTitle>
+        </DialogHeader>
         <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Guest Name"
-            value={guestName}
-            onChange={(e) => setGuestName(e.target.value)}
-            className="border p-2 mb-2 w-full"
-            required
-          />
-          <input
-            type="tel"
-            placeholder="Phone"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            className="border p-2 mb-2 w-full"
-            required
-          />
-          <input
-            type="number"
-            placeholder="Party Size"
-            value={partySize}
-            onChange={(e) => setPartySize(parseInt(e.target.value))}
-            className="border p-2 mb-2 w-full"
-            min="1"
-            required
-          />
-          <input
-            type="datetime-local"
-            value={dateTime}
-            onChange={(e) => setDateTime(e.target.value)}
-            className="border p-2 mb-2 w-full"
-            required
-          />
-          <textarea
-            placeholder="Special Requests"
-            value={specialRequests}
-            onChange={(e) => setSpecialRequests(e.target.value)}
-            className="border p-2 mb-2 w-full"
-          />
-          <div className="flex gap-2 justify-end">
-            <button
-              type="button"
-              onClick={onCancel}
-              className="bg-gray-500 text-white p-2 rounded"
-            >
+          <div className="grid gap-4 py-4">
+            <Input
+              type="text"
+              placeholder="Guest Name"
+              value={guestName}
+              onChange={(e) => setGuestName(e.target.value)}
+              required
+            />
+            <Input
+              type="tel"
+              placeholder="Phone"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              required
+            />
+            <Input
+              type="number"
+              placeholder="Party Size"
+              value={partySize}
+              onChange={(e) => setPartySize(parseInt(e.target.value))}
+              min={1}
+              required
+            />
+            <Input
+              type="datetime-local"
+              value={dateTime}
+              onChange={(e) => setDateTime(e.target.value)}
+              required
+            />
+            <Textarea
+              placeholder="Special Requests"
+              value={specialRequests}
+              onChange={(e) => setSpecialRequests(e.target.value)}
+            />
+          </div>
+          <div className="flex gap-2 justify-end mt-4">
+            <Button type="button" variant="outline" onClick={onCancel}>
               Cancel
-            </button>
-            <button
-              type="submit"
-              className="bg-blue-500 text-white p-2 rounded"
-            >
-              Save Changes
-            </button>
+            </Button>
+            <Button type="submit">Save Changes</Button>
           </div>
         </form>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 };
 
